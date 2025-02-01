@@ -22,6 +22,29 @@ extension NetworkQuizRepository: QuizRepository {
     return try await getData(url: url)
   }
   
+  public func fetchQuiz(
+    for categoryId: QuizCategoryId,
+    difficulty: QuizDifficulty,
+    questionType: QuizType?
+  ) async throws -> QuizResponse {
+    // format: https://opentdb.com/api.php?amount=10&category=10&difficulty=easy&type=multiple
+    var queryItems: [URLQueryItem] = [
+      .init(name: "amount", value: "10"),
+      .init(name: "category", value: String(categoryId.value)),
+      .init(name: "difficulty", value: difficulty.rawValue),
+      .init(name: "encode", value: "url3986")
+    ]
+    
+    if let questionType = questionType {
+      queryItems.append(.init(name: "type", value: questionType.rawValue))
+    }
+    
+    let url = baseURL
+      .appendingPathComponent("api.php")
+      .appending(queryItems: queryItems)
+    return try await getData(url: url)
+  }
+  
   private func getData<T: Decodable>(url: URL) async throws -> T {
     let (data, response) = try await urlSession.data(from: url)
     guard let httpResponse = response as? HTTPURLResponse else {

@@ -8,4 +8,9 @@ public enum QuizRepositoryError: Error {
 
 public protocol QuizRepository: Sendable {
   func fetchQuizCategories() async throws -> QuizCategoryResponse
+  func fetchQuiz(
+    for categoryId: QuizCategoryId,
+    difficulty: QuizDifficulty,
+    questionType: QuizType?
+  ) async throws -> QuizResponse
 }
