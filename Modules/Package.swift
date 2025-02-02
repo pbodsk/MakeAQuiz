@@ -8,32 +8,26 @@
  
  **A Core library**
  
- Here you have "foundational" things that should be avaiable to all
+ Which holds "foundational" things that should be avaiable to all.
  
  **QuizFeature**
  
- The "quiz UI logic", that is view, viewmodel and UI stuff for the quiz
- 
+ Which holds the actual feature. The idea is to have a library for each feature and then have - almost - all code relevant for this feature located here. Note that I said almost...you could imagine defining a `SharedUI` library as well for instance that could be used across several Features. The `QuizFeature` has a dependency to the `QuizManager` library.
+
  **QuizManager**
 
- The "quiz business logic", that is domain objects, logic for fetching data from the API and so on
- 
- You _could_ argue that we should have a separate .library for network functionality, or that some
- of it should be moved to the "Core" layer...and I wouldn't argue with you on that :)
- 
+ Which holds the Manager and the Repository. You could argue that maybe the `Manager` and the `Repository` should be in separate layers/libraries and I wouldn't argue with you :)
+
  **Why?**
  
- I've chosen to split the code like so because it makes it easy for you as a developer to focus on a
- single part of the app. You can switch to working on just the QuizFeature and compile that part isolated
- and make sure that works by itself. And at the same time a colleague can work on another feature
- and you don't have mergeconflicts (or fewer mergeconflicts at least) in the project file
+ The idea is to have as little code as possible in the "app" itself and as much as possible in individual Swift Package libraries. The advantage is that you can build, work on and test the individual libraries isolated.
  */
 
 import PackageDescription
 
 let package = Package(
     name: "Modules",
-    platforms: [.iOS(.v16)],
+    platforms: [.iOS(.v17)],
     products: [
       .library(
         name: "Core",
