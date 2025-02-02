@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8C14E6C02D4D3B0500524871 /* QuizFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 8C14E6BF2D4D3B0500524871 /* QuizFeature */; };
-		8C43CE522D4D3E5D0006C58E /* QuizManager in Frameworks */ = {isa = PBXBuildFile; productRef = 8C43CE512D4D3E5D0006C58E /* QuizManager */; };
-		8C43CE542D4DF6170006C58E /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = 8C43CE532D4DF6170006C58E /* Core */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,8 +58,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C14E6C02D4D3B0500524871 /* QuizFeature in Frameworks */,
-				8C43CE522D4D3E5D0006C58E /* QuizManager in Frameworks */,
-				8C43CE542D4DF6170006C58E /* Core in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,8 +128,6 @@
 			name = MakeAQuiz;
 			packageProductDependencies = (
 				8C14E6BF2D4D3B0500524871 /* QuizFeature */,
-				8C43CE512D4D3E5D0006C58E /* QuizManager */,
-				8C43CE532D4DF6170006C58E /* Core */,
 			);
 			productName = MakeAQuiz;
 			productReference = 8C14E68D2D4D385100524871 /* MakeAQuiz.app */;
@@ -589,14 +583,6 @@
 		8C14E6BF2D4D3B0500524871 /* QuizFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = QuizFeature;
-		};
-		8C43CE512D4D3E5D0006C58E /* QuizManager */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = QuizManager;
-		};
-		8C43CE532D4DF6170006C58E /* Core */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Core;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

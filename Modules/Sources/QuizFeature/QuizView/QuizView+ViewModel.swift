@@ -43,7 +43,7 @@ extension QuizView {
                     resultText = "That was correct, good job"
                     score += 1
                 } else {
-                    resultText = "No sorry, that was wrong...you got the next one!"
+                    resultText = "I'm sorry, that was not correct, it was \"\(correctAnswer.text)\". You'll get the next one I'm sure"
                 }
                 nextButtonDisabled = false
             case .nextQuestion:
