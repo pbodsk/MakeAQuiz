@@ -1,4 +1,10 @@
 import Foundation
+/**
+ A wrapper that makes it easy for us to generate strongly typed IDs from "primitive" types we receive from
+ the backend.
+
+ Used in `QuizCategoryId`
+ */
 public protocol ModelIdentifiable: Codable {
     associatedtype T: Codable
 
