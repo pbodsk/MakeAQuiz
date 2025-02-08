@@ -1,3 +1,4 @@
+import LookAndFeel
 import QuizManager
 import SwiftUI
 
@@ -48,7 +49,7 @@ public struct QuizCategoriesView: View {
                         .frame(maxWidth: .infinity)
                 })
                 .disabled(viewModel.quizButtonDisabled)
-                .buttonStyle(.borderedProminent)
+                .buttonStyle(.wide)
             }
         }
         // Here I should probably have made an enum as well, akin to the

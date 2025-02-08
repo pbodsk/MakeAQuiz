@@ -1,3 +1,4 @@
+import LookAndFeel
 import QuizManager
 import SwiftUI
 
@@ -68,7 +69,7 @@ struct QuestionView: View {
                     .frame(maxWidth: .infinity)
             })
             .disabled(selectedAnswer == nil)
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.wide)
         }
     }
 
@@ -83,14 +84,12 @@ struct QuestionView: View {
     ) -> some View {
         VStack {
             ForEach(allAnswers) { answer in
-                Text(answer.text)
-                    .padding(12)
-                    .frame(maxWidth: .infinity)
-                    .border(.black)
-                    .background(selectedAnswer?.id == answer.id ? .blue: .white)
-                    .onTapGesture {
-                        self.selectedAnswer = answer
-                    }
+                Button(action: {
+                    self.selectedAnswer = answer
+                }, label: {
+                    Text(answer.text)
+                })
+                .buttonStyle(selectedAnswer?.id == answer.id ? .selectedQuestion : .unselectedQuestion)
             }
         }
     }

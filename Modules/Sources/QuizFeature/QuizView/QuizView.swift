@@ -53,7 +53,8 @@ struct QuizView: View {
                                 )
                             )
                         }
-                    ).disabled(!viewModel.nextButtonDisabled)
+                    )
+                    .disabled(!viewModel.nextButtonDisabled)
                 }
                 if let resultText = viewModel.resultText {
                     Text(resultText)
@@ -78,7 +79,7 @@ struct QuizView: View {
                 }
             )
             .disabled(viewModel.nextButtonDisabled)
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.wide)
 
             Button(
                 action: {
@@ -102,7 +103,7 @@ struct QuizView: View {
             Button("Give me another quiz", action: {
                 dismiss()
             })
-            .buttonStyle(.borderedProminent)
+            .buttonStyle(.wide)
         }
     }
 }
