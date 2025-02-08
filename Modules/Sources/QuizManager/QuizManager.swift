@@ -9,7 +9,10 @@ public enum QuizManagerError: Error {
  typing :)
  */
 public protocol QuizManager: Actor {
-    func fetchQuizCatagories() async throws -> [QuizCategory]
+    func fetchQuizCatagories() async throws -> [UIQuizCategory]
+    func fetchCategoryCounts(
+        for categoryIds: [QuizCategoryId]
+    ) throws -> AsyncStream<UIQuizCategoryCountSummary>
     func fetchQuiz(
         for categoryId: QuizCategoryId,
         difficulty: QuizDifficulty,

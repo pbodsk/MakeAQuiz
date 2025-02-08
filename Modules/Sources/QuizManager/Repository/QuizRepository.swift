@@ -19,4 +19,7 @@ public protocol QuizRepository: Sendable {
         difficulty: QuizDifficulty,
         questionType: QuizType?
     ) async throws -> QuizResponse
+    func fetchQuestionCount(
+        for categoryId: QuizCategoryId
+    ) async throws -> QuizCategoryCountResponse
 }

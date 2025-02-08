@@ -62,6 +62,15 @@ extension NetworkQuizRepository: QuizRepository {
         return try await getData(url: url)
     }
 
+    public func fetchQuestionCount(for categoryId: QuizCategoryId) async throws -> QuizCategoryCountResponse {
+        let url = baseURL
+            .appendingPathComponent("api_count.php")
+            .appending(queryItems: [
+                .init(name: "category", value: String(categoryId.value))
+            ])
+        return try await getData(url: url)
+    }
+
     private func getData<T: Decodable>(url: URL) async throws -> T {
         let (data, response) = try await urlSession.data(from: url)
         guard let httpResponse = response as? HTTPURLResponse else {

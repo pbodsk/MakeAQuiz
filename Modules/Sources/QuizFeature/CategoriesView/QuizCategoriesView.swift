@@ -26,13 +26,13 @@ public struct QuizCategoriesView: View {
             case .failed:
                 // yeah I know
                 Text("Failed to load categories")
-            case .data(let categories):
+            case .data:
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
                         Text("Select a category")
                             .font(.title2)
 
-                        categoryList(for: categories)
+                        categoryList(for: viewModel.categories)
                     }
                 }
                 Spacer()
@@ -81,15 +81,31 @@ public struct QuizCategoriesView: View {
      same file (no need for a new view file here...it'll only ever be used here)
      Keeps the main body somewhat trimmed (and who wouldn't want that)
      */
-    private func categoryList(for categories: [QuizCategory]) -> some View {
+    private func categoryList(for categories: [UIQuizCategory]) -> some View {
         ForEach(categories) { category in
-            Button(action: {
-                self.viewModel.handle(.select(category))
-            }, label: {
-                HStack {
-                    Text(category.name)
-                        .bold(viewModel.selectedCategory?.id == category.id)
-                    Spacer()
+            Button(
+                action: {
+                    self.viewModel.handle(.select(category))
+                },
+                label: {
+                    VStack {
+                        HStack {
+                            Text(category.name)
+                                .bold(viewModel.selectedCategory?.id == category.id)
+                            Spacer()
+                        }
+                        
+                        if let countSummary = category.countSummary {
+                            VStack {
+                                HStack {
+                                    Text(
+                                        "\(countSummary.totalQuestions) questions in total (\(countSummary.easyQuestions) easy, \(countSummary.mediumQuestions) medium, \(countSummary.hardQuestions) hard)"
+                                    )
+                                Spacer()
+                            }
+                        }
+                        .font(.footnote)
+                    }
                 }
             })
             .buttonStyle(.plain)

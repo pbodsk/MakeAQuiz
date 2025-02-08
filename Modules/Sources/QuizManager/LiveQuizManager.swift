@@ -26,11 +26,38 @@ extension LiveQuizManager: QuizManager {
      So here is where we can convert from the API "world" to our apps needs
      For instance here we sort them alphabetically
      */
-    public func fetchQuizCatagories() async throws -> [QuizCategory] {
+    public func fetchQuizCatagories() async throws -> [UIQuizCategory] {
         try await repository
             .fetchQuizCategories()
             .triviaCategories
+            .map { UIQuizCategory(from: $0) }
             .sorted(by: { $0.name < $1.name} )
+    }
+
+    public func fetchCategoryCounts(
+        for categoryIds: [QuizCategoryId]
+    ) throws -> AsyncStream<UIQuizCategoryCountSummary> {
+        AsyncStream { continuation in
+            Task {
+                try await withThrowingTaskGroup(of: QuizCategoryCountResponse?.self) { group in
+                    for categoryId in categoryIds {
+                        group.addTask(operation: { [weak self] in
+                            try await self?.repository.fetchQuestionCount(for: categoryId)
+                        })
+                    }
+
+                    for try await response in group {
+                        if let response = response {
+                            continuation.yield(
+                                UIQuizCategoryCountSummary(from: response)
+                            )
+                        }
+                    }
+
+                    continuation.finish()
+                }
+            }
+        }
     }
 
     /*

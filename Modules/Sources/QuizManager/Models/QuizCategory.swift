@@ -1,7 +1,7 @@
 import Foundation
 
 // Representing the categories we get back when asking for all categories
-public struct QuizCategory: Decodable, Sendable, Identifiable {
+public struct QuizCategory: Decodable, Sendable {
     /*
      I like to make strongly typed IDs instead of just reusing whatever the
      backend hands us back.
@@ -18,10 +18,16 @@ public struct QuizCategory: Decodable, Sendable, Identifiable {
 
 public extension QuizCategory {
     static var mockMusic: Self {
-        .init(id: .init(value: 12), name: "Entertainment: Music")
+        .init(
+            id: .init(value: 12),
+            name: "Entertainment: Music"
+        )
     }
 
     static var mockBooks: Self {
-        .init(id: .init(value: 10), name: "Entertainment: Book")
+        .init(
+            id: .init(value: 10),
+            name: "Entertainment: Book"
+        )
     }
 }

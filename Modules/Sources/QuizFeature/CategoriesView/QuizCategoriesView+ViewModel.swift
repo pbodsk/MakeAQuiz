@@ -18,7 +18,7 @@ extension QuizCategoriesView {
             case undefined
             case loading
             case failed
-            case data([QuizCategory])
+            case data
 
             var requiresData: Bool {
                 switch self {
@@ -31,7 +31,7 @@ extension QuizCategoriesView {
         }
 
         enum Action {
-            case select(QuizCategory)
+            case select(UIQuizCategory)
             case startQuiz
         }
 
@@ -56,7 +56,9 @@ extension QuizCategoriesView {
         private let quizManager: QuizManager
 
         @Published private(set) var viewState: ViewState
-        @Published private(set) var selectedCategory: QuizCategory?
+        @Published private(set) var selectedCategory: UIQuizCategory?
+
+        @Published private(set) var categories: [UIQuizCategory] = []
 
         @Published var selectedDifficulty: QuizDifficulty
         @Published var selectedType: QuizType
@@ -87,8 +89,16 @@ extension QuizCategoriesView {
                 self.viewState = .loading
 
                 do {
-                    let categories = try await quizManager.fetchQuizCatagories()
-                    self.viewState = .data(categories)
+                    self.categories = try await quizManager.fetchQuizCatagories()
+                    self.viewState = .data
+                    let categoryIDs = categories.map(\.id)
+
+                    for await categoryCount in try await quizManager.fetchCategoryCounts(for: categoryIDs) {
+                        if let index = categories.firstIndex(where: { $0.id == categoryCount.id}) {
+                            categories[index].countSummary = categoryCount
+                        }
+                    }
+
                 } catch {
                     self.viewState = .failed
                 }
